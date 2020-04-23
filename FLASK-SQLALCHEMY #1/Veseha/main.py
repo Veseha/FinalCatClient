@@ -9,17 +9,29 @@ db_session.global_init("db/blogs.sqlite")
 
 
 def main():
-    user = User()
-    user.name = "Пользователь 2"
-    user.about = "биография пользователя 3"
-    user.email = "ema2il@email.ru"
-    print(user)
-    print('----------------------------------------')
+    # ---------------------- тестирование системы --------------------
+    # ----------- добавление пользователя -------------
+    # user = User()
+    # user.name = "Пользов3атель 2"
+    # user.about = "биография пользователя 3"
+    # user.email = "ema2i4l@email.ru"
+
+    # --------- создание сесии ------------------------
     session = db_session.create_session()
-    session.add(user)
+    # session.add(user) # ------- добавление инфы
     session.commit()
 
+    # --------- вывод инфы ----------------------------
+    user = session.query(User).first()
+    print(user.name)
+
+    for user in session.query(User).all():
+        print(user)
+
+
     app.run()
+
+
 
 
 if __name__ == '__main__':
