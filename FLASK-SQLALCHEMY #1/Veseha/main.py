@@ -24,8 +24,11 @@ def main():
     # --------- вывод инфы ----------------------------
     user = session.query(User).first()
     print(user.name)
-
+    print('-------------')
     for user in session.query(User).all():
+        print(user)
+    print('-------------')
+    for user in session.query(User).filter(User.id > 1, User.email.notilike("%1%")):
         print(user)
 
 
