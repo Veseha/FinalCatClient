@@ -5,17 +5,7 @@ from .db_session import SqlAlchemyBase
 from sqlalchemy import orm
 
 
-class User(SqlAlchemyBase):
-    def set_password(self, password):
-        self.hashed_password = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.hashed_password, password)
-
-    def __repr__(self):
-        return '<User>' + ' ' + str(self.id) + ' ' + self.name + ' ' + self.email
-
-
+class Jobs(SqlAlchemyBase):
     __tablename__ = 'users'
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)

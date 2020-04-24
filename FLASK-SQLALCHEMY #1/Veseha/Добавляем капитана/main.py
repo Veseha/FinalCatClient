@@ -27,74 +27,78 @@ class RegisterForm(FlaskForm):
 def main():
     # ---------------------- тестирование системы --------------------
     # ----------- добавление пользователя -------------
-    # user = User()
-    # user.name = "Пользов3атель 2"
-    # user.about = "биография пользователя 3"
-    # user.email = "ema2i4l@email.ru"
+    user = User()
+    user.name = "Scott"
+    user.surname = 'Ridley'
+    user.age = 21
+    user.position = "capitan"
+    user.speciality = 'research engineer'
+    user.address = 'module_1'
+    user.email = "scott_chief@mars.org"
 
     # --------- создание сесии ------------------------
     session = db_session.create_session()
-    # session.add(user) # ------- добавление инфы
+    session.add(user) # ------- добавление инфы
     session.commit()
 
     # --------- вывод инфы ----------------------------
-    print('------------- запрос инфы об об определенном параметре')
-    user = session.query(User).first()
-    print(user.name)
-
-    print('------------- вывод всего и вся')
-    for user in session.query(User).all():
-        print(user)
-
-    print('------------- фильтр с операцией AND')
-    for user in session.query(User).filter(User.id > 1, User.email.notilike("%1%")):
-        print(user)
-
-    print('------------- фильтр с операцией OR')
-    for user in session.query(User).filter((User.id > 1) | (User.email.notilike("%1%"))):
-        print(user)
-
-    print('--------- изменение инфы')
-    user = session.query(User).filter(User.id == 1).first()
-    print(user)
-    user.name = "Измененное имя пользователя"
-    user.created_date = datetime.datetime.now()
-    session.commit()
-
-    print('---------- удаление инфы по фильтру')
-    session.query(User).filter(User.id >= 999).delete()
-    session.commit()
-
-    print('---------- удаление инфы определенного элемента')
-    # user = session.query(User).filter(User.id == 2).first()
-    # session.delete(user)
+    # print('------------- запрос инфы об об определенном параметре')
+    # user = session.query(User).first()
+    # print(user.name)
+    #
+    # print('------------- вывод всего и вся')
+    # for user in session.query(User).all():
+    #     print(user)
+    #
+    # print('------------- фильтр с операцией AND')
+    # for user in session.query(User).filter(User.id > 1, User.email.notilike("%1%")):
+    #     print(user)
+    #
+    # print('------------- фильтр с операцией OR')
+    # for user in session.query(User).filter((User.id > 1) | (User.email.notilike("%1%"))):
+    #     print(user)
+    #
+    # print('--------- изменение инфы')
+    # user = session.query(User).filter(User.id == 1).first()
+    # print(user)
+    # user.name = "Измененное имя пользователя"
+    # user.created_date = datetime.datetime.now()
     # session.commit()
-
-    print(" ---------- Добавление записи юзеру")
-    news = News(title="Первая новость", content="Привет блог!",
-                user_id=1, is_private=False)
-    # session.add(news)
-    session.commit()
-
-    print('----------- Добавление записи вот так')
-    user = session.query(User).filter(User.id == 1).first()
-    news = News(title="Вторая новость", content="Уже вторая запись!",
-                user=user, is_private=False)
-    # session.add(news)
-    session.commit()
-
-    print('----------- посмотри код, здесь один из лучших спопосбов добавления записи')
-    user = session.query(User).filter(User.id == 1).first()
-    news = News(title="Личная запись", content="Эта запись личная",
-                is_private=True)
-    # user.news.append(news)
-    session.commit()
-
-    print('----------- тупо все новости юзера')
-    for news in user.news:
-        print(news)      # ---------- надо бы добавить __repr__
-
-    # ------------ запуск приложения
+    #
+    # print('---------- удаление инфы по фильтру')
+    # session.query(User).filter(User.id >= 999).delete()
+    # session.commit()
+    #
+    # print('---------- удаление инфы определенного элемента')
+    # # user = session.query(User).filter(User.id == 2).first()
+    # # session.delete(user)
+    # # session.commit()
+    #
+    # print(" ---------- Добавление записи юзеру")
+    # news = News(title="Первая новость", content="Привет блог!",
+    #             user_id=1, is_private=False)
+    # # session.add(news)
+    # session.commit()
+    #
+    # print('----------- Добавление записи вот так')
+    # user = session.query(User).filter(User.id == 1).first()
+    # news = News(title="Вторая новость", content="Уже вторая запись!",
+    #             user=user, is_private=False)
+    # # session.add(news)
+    # session.commit()
+    #
+    # print('----------- посмотри код, здесь один из лучших спопосбов добавления записи')
+    # user = session.query(User).filter(User.id == 1).first()
+    # news = News(title="Личная запись", content="Эта запись личная",
+    #             is_private=True)
+    # # user.news.append(news)
+    # session.commit()
+    #
+    # print('----------- тупо все новости юзера')
+    # for news in user.news:
+    #     print(news)      # ---------- надо бы добавить __repr__
+    #
+    # # ------------ запуск приложения
     app.run(port=8080, host='127.0.0.1')
 
 
