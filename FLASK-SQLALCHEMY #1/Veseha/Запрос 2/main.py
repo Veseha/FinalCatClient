@@ -13,7 +13,7 @@ for user in session.query(User).filter(User.address == 'module_1',
                                        User.position.notilike("%ingeneer%")):
     print(user.id)
 
-
+# fff
 # def main():
 #     # ---------------------- тестирование системы --------------------
 #     # ----------- добавление пользователя -------------
