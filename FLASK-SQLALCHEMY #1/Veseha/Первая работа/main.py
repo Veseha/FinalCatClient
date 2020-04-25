@@ -27,29 +27,29 @@ class RegisterForm(FlaskForm):
 def main():
     # ---------------------- тестирование системы --------------------
     # ----------- добавление пользователя -------------
-    user = User()
-    user.name = "Scott"
-    user.surname = 'Ridley'
-    user.age = 21
-    user.position = "capitan"
-    user.speciality = 'research engineer'
-    user.address = 'module_1'
-    user.email = "scott_chief@mars.org"
-
-
-
-    jobs = Jobs()
-    jobs.team_leader = 1
-    jobs.job = 'deployment of residential modules 1 and 2'
-    jobs.work_size = 15
-    jobs.collaborators = '2, 3'
-    jobs.is_finished = False
+    # user = User()
+    # user.name = "Scott"
+    # user.surname = 'Ridley'
+    # user.age = 21
+    # user.position = "capitan"
+    # user.speciality = 'research engineer'
+    # user.address = 'module_1'
+    # user.email = "scott_chief@mars.org"
+    #
+    #
+    #
+    # jobs = Jobs()
+    # jobs.team_leader = 1
+    # jobs.job = 'deployment of residential modules 1 and 2'
+    # jobs.work_size = 15
+    # jobs.collaborators = '2, 3'
+    # jobs.is_finished = False
 
     # --------- создание сесии ------------------------
     session = db_session.create_session()
-    session.add(user) # ------- добавление инфы
-    session.commit()
-    session.add(jobs)
+    # session.add(user) # ------- добавление инфы
+    # session.commit()
+    #session.add(jobs)
     session.commit()
 
     # user = session.query(User).filter(User.id == 1).first()
