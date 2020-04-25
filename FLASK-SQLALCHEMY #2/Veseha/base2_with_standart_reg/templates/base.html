@@ -18,11 +18,23 @@
 <header>
     <nav class="navbar navbar-dark bg-primary">
         <a class="navbar-brand" href="#">
-            <h1> {{ name_header }} </h1>
+            <h1> Veseha </h1>
         </a>
         <span class="navbar-text">
-            {{ name_header_2 }}
+            YandexLyceum
         </span>
+        {% if current_user.is_authenticated %}
+            <p>
+                <a class="btn btn-primary"> {{ current_user.name }} </a>
+                <a class="btn btn-warning" href="/logout"> Выйти </a>
+            </p>
+
+        {% else %}
+            <p>
+                <a class="btn btn-primary" href="/register">Зарегистрироваться</a>
+                <a class="btn btn-success" href="/login">Войти</a>
+            </p>
+        {% endif %}
     </nav>
 </header>
 <!-- Begin page content -->
