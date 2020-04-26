@@ -1,5 +1,4 @@
 import unittest
-
 from yandex_testing_lesson import reverse
 
 

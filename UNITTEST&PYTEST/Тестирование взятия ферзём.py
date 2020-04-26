@@ -1,5 +1,4 @@
 import pytest
-
 from yandex_testing_lesson import is_under_queen_attack
 
 
@@ -13,12 +12,12 @@ def test_wrong_coordinate():
         is_under_queen_attack("abc", "42")
 
 
-def test_wrong_coordinate2():
+def test_wrong_coordinate1():
     with pytest.raises(ValueError):
         is_under_queen_attack('c3', 'd4d')
 
 
-def test_wrong_coordinate_out_of_bounds():
+def test_wrong_coordinate_bounds():
     with pytest.raises(ValueError):
         is_under_queen_attack("e1", "e9")
 
