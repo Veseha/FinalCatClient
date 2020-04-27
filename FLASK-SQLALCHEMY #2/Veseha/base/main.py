@@ -167,14 +167,17 @@ def add_news():
 @login_required
 def edit_news(id):
     form = NewsForm()
+    print(current_user)
     if request.method == "GET":
         session = db_session.create_session()
         news = session.query(News).filter(News.id == id,
                                           News.user == current_user).first()
+        print(news.title)
         if news:
             form.title.data = news.title
             form.content.data = news.content
             form.is_private.data = news.is_private
+            print(form.title)
         else:
             abort(404)
     if form.validate_on_submit():

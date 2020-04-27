@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Записи в блоге</h1>
+{% if current_user.is_authenticated %}
+        <a href="news" class="btn btn-secondary">Добавить новость</a>
+    {% endif %}
+{% for item in list %}
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Work</th>
+      <th scope="col">Lider</th>
+      <th scope="col">Time work</th>
+      <th scope="col">Workers</th>
+        <th scope="col">Finished?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th> {{ item[0] }} </th>
+      <td>{{ item[1] }}</td>
+      <td>{{ item[2] }}</td>
+      <td>{{ item[3] }}</td>
+        <td>{{ item[4] }}</td>
+
+    </tr>
+  </tbody>
+</table>
+{% if current_user.is_authenticated and current_user == item.user %}
+    <div>
+        <a href="/news/{{ item.id }}" class="btn btn-warning">Изменить</a>
+        <a href="/news_delete/{{ item.id }}" class="btn btn-danger">Удалить</a>
+    </div>
+{% endif %}
+{% endfor %}
+{% endblock %}

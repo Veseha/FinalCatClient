@@ -1,12 +1,12 @@
 from flask import Flask, render_template, redirect, request, make_response, session, abort
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField,  BooleanField, SubmitField, TextAreaField,\
-    SubmitField, ValidationError, TextField
+    SubmitField, ValidationError, TextField, IntegerField
 from wtforms.validators import DataRequired
 from wtforms.fields.html5 import EmailField
 from data import db_session
 from data.users import User
-from data.news import News
+from data.news import Jobs
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 import datetime
 
@@ -36,10 +36,12 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Войти')
 
 
-class NewsForm(FlaskForm):
-    title = StringField('Заголовок', validators=[DataRequired()])
-    content = TextAreaField("Содержание")
-    is_private = BooleanField("Личное")
+class JobsForm(FlaskForm):
+    team_leader = IntegerField('Лидер', validators=[DataRequired()])
+    job = StringField("Работа")
+    work_size = StringField('Объем работы')
+    collaborators = StringField('Работкники')
+    is_finished = BooleanField("Закончено ли?")
     submit = SubmitField('Применить')
 
 
@@ -145,46 +147,73 @@ def login():
     return render_template('login.html', title='Авторизация', form=form)
 
 
-@app.route('/news',  methods=['GET', 'POST'])
+# @app.route('/news',  methods=['GET', 'POST'])
+# @login_required
+# def add_news():
+#     form = NewsForm()
+#     if form.validate_on_submit():
+#         session = db_session.create_session()
+#         news = News()
+#         news.title = form.title.data
+#         news.content = form.content.data
+#         news.is_private = form.is_private.data
+#         current_user.news.append(news)
+#         session.merge(current_user)
+#         session.commit()
+#         return redirect('/')
+#     return render_template('news.html', title='Добавление новости',
+#                            form=form)
+
+
+@app.route('/jobs',  methods=['GET', 'POST'])
 @login_required
-def add_news():
-    form = NewsForm()
+def add_Jobs():
+    form = JobsForm()
     if form.validate_on_submit():
         session = db_session.create_session()
-        news = News()
-        news.title = form.title.data
-        news.content = form.content.data
-        news.is_private = form.is_private.data
-        current_user.news.append(news)
+        jobs = Jobs()
+        jobs.team_leader = form.team_leader.data
+        jobs.job = form.job.data
+        jobs.work_size = form.work_size.data
+        jobs.collaborators = form.collaborators.data
+        jobs.is_finished = form.is_finished.data
+        current_user.jobs.append(jobs)
         session.merge(current_user)
         session.commit()
         return redirect('/')
-    return render_template('news.html', title='Добавление новости',
+    return render_template('news.html', title='Дбавление работы',
                            form=form)
 
 
-@app.route('/news/<int:id>', methods=['GET', 'POST'])
+@app.route('/jobs/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_news(id):
-    form = NewsForm()
+    form = JobsForm()
     if request.method == "GET":
+
         session = db_session.create_session()
-        news = session.query(News).filter(News.id == id,
-                                          News.user == current_user).first()
-        if news:
-            form.title.data = news.title
-            form.content.data = news.content
-            form.is_private.data = news.is_private
+        jobs = session.query(Jobs).filter(Jobs.id == id).first()
+        if jobs:
+
+            form.team_leader.data = jobs.team_leader
+            form.job.data = jobs.job
+            form.work_size.data = jobs.work_size
+            form.collaborators.data = jobs.collaborators
+            form.is_finished.data = jobs.is_finished
+            print(form.team_leader)
         else:
             abort(404)
     if form.validate_on_submit():
         session = db_session.create_session()
-        news = session.query(News).filter(News.id == id,
-                                          News.user == current_user).first()
-        if news:
-            news.title = form.title.data
-            news.content = form.content.data
-            news.is_private = form.is_private.data
+        jobs = session.query(Jobs).filter(Jobs.id == id,
+                                          Jobs.user == current_user).first()
+        if jobs:
+            jobs.team_leader = form.team_leader.data
+            jobs.job = form.job.data
+            jobs.work_size = form.work_size.data
+            jobs.collaborators = form.collaborators.data
+            jobs.is_finished = form.is_finished.data
+
             session.commit()
             return redirect('/')
         else:
@@ -192,54 +221,65 @@ def edit_news(id):
     return render_template('news.html', title='Редактирование новости', form=form)
 
 
-@app.route('/news_delete/<int:id>', methods=['GET', 'POST'])
-@login_required
-def news_delete(id):
-    session = db_session.create_session()
-    news = session.query(News).filter(News.id == id,
-                                      News.user == current_user).first()
-    if news:
-        session.delete(news)
-        session.commit()
-    else:
-        abort(404)
-    return redirect('/')
+# @app.route('/news_delete/<int:id>', methods=['GET', 'POST'])
+# @login_required
+# def news_delete(id):
+#     session = db_session.create_session()
+#     news = session.query(News).filter(News.id == id,
+#                                       News.user == current_user).first()
+#     if news:
+#         session.delete(news)
+#         session.commit()
+#     else:
+#         abort(404)
+#     return redirect('/')
 
 
-@app.route("/cookie_test")
-def cookie_test():
-    visits_count = int(request.cookies.get("visits_count", 0))
-    if visits_count:
-        res = make_response(f"Вы пришли на эту страницу {visits_count + 1} раз")
-        res.set_cookie("visits_count", str(visits_count + 1),
-                       max_age=20)
-    else:
-        res = make_response(
-            "Вы пришли на эту страницу в первый раз за последние 2 года")
-        res.set_cookie("visits_count", '1',
-                       max_age=20)
-    return res
+# @app.route("/cookie_test")
+# def cookie_test():
+#     visits_count = int(request.cookies.get("visits_count", 0))
+#     if visits_count:
+#         res = make_response(f"Вы пришли на эту страницу {visits_count + 1} раз")
+#         res.set_cookie("visits_count", str(visits_count + 1),
+#                        max_age=20)
+#     else:
+#         res = make_response(
+#             "Вы пришли на эту страницу в первый раз за последние 2 года")
+#         res.set_cookie("visits_count", '1',
+#                        max_age=20)
+#     return res
 
 
-@app.route('/session_test/')
-def session_test():
-    if 'visits_count' in session:
-        session['visits_count'] = session.get('visits_count') + 1
-    else:
-        session['visits_count'] = 1
-    return make_response(f'kolvo {session["visits_count"]}')
-    # дальше - код для вывода страницы
+# @app.route('/session_test/')
+# def session_test():
+#     if 'visits_count' in session:
+#         session['visits_count'] = session.get('visits_count') + 1
+#     else:
+#         session['visits_count'] = 1
+#     return make_response(f'kolvo {session["visits_count"]}')
+#     # дальше - код для вывода страницы
 
 
 @app.route("/")
 def index():
+    # session = db_session.create_session()
+    # if current_user.is_authenticated:
+    #     news = session.query(News).filter(
+    #         (News.user == current_user) | (News.is_private != True))
+    # else:
+    #     news = session.query(News).filter(News.is_private != True)
+    # return render_template("index.html", news=news)
     session = db_session.create_session()
-    if current_user.is_authenticated:
-        news = session.query(News).filter(
-            (News.user == current_user) | (News.is_private != True))
-    else:
-        news = session.query(News).filter(News.is_private != True)
-    return render_template("index.html", news=news)
+    news = session.query(Jobs).all()
+    a = []
+    print(news)
+    for i in news:
+        b = str(i).split('&&&')
+        b[1] = str(session.query(User).filter(User.id == int(b[1])).first())
+        a.append(b)
+        print(type(current_user))
+    print(a)
+    return render_template("index.html", list=a, currentt_user=str(current_user))
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -257,8 +297,8 @@ def reqister():
                                    message="Такой пользователь уже есть")
         user = User(
             name=form.name.data,
-            email=form.email.data,
-            about=form.about.data
+            email=form.email.data
+            # about=form.about.data
         )
         user.set_password(form.password.data)
         session.add(user)
