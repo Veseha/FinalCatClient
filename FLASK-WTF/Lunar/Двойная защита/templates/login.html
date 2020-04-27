@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="access"> <img src="https://yastatic.net/s3/lyceum/content/images/second-year/web/MARS-2-7.png"/> Аварийный доступ</h1>
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.userid.label }}<br>
+        {{ form.userid(class="form-control") }}<br>
+        {% for error in form.userid.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form.password_1.label }}<br>
+        {{ form.password_1(class="form-control", type="password") }}<br>
+        {% for error in form.password_1.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form.cap_id.label }}<br>
+        {{ form.cap_id(class="form-control") }}<br>
+        {% for error in form.cap_id.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form.password_2.label }}<br>
+        {{ form.password_2(class="form-control", type="password") }}<br>
+        {% for error in form.password_2.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>{{ form.submit(type="button", class="btn btn-primary") }}</p>
+</form>
+{% endblock %}

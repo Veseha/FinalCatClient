@@ -1,17 +1,39 @@
-form.login_form {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 450px;
-    background-color: #ffcc00;
-    border: 1px solid gray;
-    border-radius: 5px;
-    padding: 10px;
-}
+*****CSS RESET*******/
 
-h4 {
-    color: #e60202;
-    margin-left: -80px;
-    padding-left: 20px;
-    border: 100px;
-    padding: 25px;
-}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent; }
+body { line-height: 1; }
+ol, ul { list-style: none; }
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after,
+q:before, q:after { content: ''; content: none; }
+:focus { outline: 0; }
+ins { text-decoration: none; }
+del { text-decoration: line-through; }
+table { border-collapse: collapse; border-spacing: }
+
+/*****BODY STYLES*******/
+
+body { font-family: Arial; font-size: 12px; line-height: 18px; background: #AEAEAE; }
+p { margin-top: 15px; }
+
+#container { margin: 0 auto; width: 1023px; }
+
+/*****HEADER STYLES*****/
+
+#header { float: left; width: 1008px; height: 162px; padding-left: 15px; background: #E7E6E6; }
+#header img { float: left; width: 298px; height: 90px; margin-top: 15px; }
+
+/*****NAV STYLES*****/
+
+ul#nav { float: left; width: 1023px; height: 45px; background: #A5A3A3; }
+ul#nav li { float: left; text-align: center; }
+ul#nav a { float: left; padding: 14px 15px 10px; color: #FFF; }
+
+/******CONTENT STYLES******/
+
+#leftContent { float: left; width: 780px; background: #F2EFEF; }
+#rightContent { float: right; width: 243px; background: #CECDCD; }
+
+/******FOOTER STYLES******/
+
+#footer { float: left; width: 1008px; height: 40px; padding-left: 15px; background: #515050; }
