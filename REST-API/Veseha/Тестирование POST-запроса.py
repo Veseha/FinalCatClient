@@ -10,8 +10,8 @@ print(get('http://localhost:8080/api/jobs/999').json())
 
 
 print(post('http://localhost:8080/api/jobs',
-           json={'id': 3, 'job': 'coding', 'team_leader': 1, 'work_size': 5,
-                 'collaborators': '2, 3', 'category': 1, 'is_finished': True}).json())  # все четко
+           json={'id': 399, 'job': 'coding', 'team_leader': 1, 'work_size': 5,
+                 'collaborators': '2, 3', 'category': 1, 'is_finished': True}).json())  # стопэ, такого айди нету
 
 print(post('http://localhost:8080/api/jobs',
            json={'id': 3, 'team_leader': 1, 'work_size': 5,
@@ -19,7 +19,7 @@ print(post('http://localhost:8080/api/jobs',
 
 print(post('http://localhost:8080/api/jobs',
            json={'id': 1, 'job': 'coding', 'team_leader': 1, 'work_size': 5,
-                 'collaborators': '2, 3', 'category': 1, 'is_finished': True}).json())  # стопэ, такой айди есть
+                 'collaborators': '2, 3', 'category': 1, 'is_finished': True}).json())  # усе четко
 
 print(post('http://localhost:8080/api/jobs',
            json={}).json())  # ну и где?
