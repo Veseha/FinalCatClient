@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>{{title}}</title>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-light bg-light">
+        <h1>veseha</h1>
+    </nav>
+</header>
+
+<h3 align="center">Activities</h3>
+<div class="table_container">
+    <table class="my_table" cellpadding="5" border="1" align="center">
+        {% for i in activities %}
+        <tr class="my_row">
+            <td class="title" width="400px">{{ i }}</td>
+            <td class="title" width="150px">{{ activities[i] }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+<br>
+<h3 align="center">Ages</h3>
+<div class="table_container">
+    <table class="my_table" cellpadding="5" border="1" align="center">
+        {% for i in ages %}
+        <tr class="my_row">
+            <td class="title" width="400px">{{ i }}</td>
+            <td class="title" width="150px">{{ ages[i] }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+<br>
+<h3 align="center">Cities</h3>
+<div class="table_container">
+    <table class="my_table" cellpadding="5" border="1" align="center">
+        {% for i in cities %}
+        <tr class="my_row">
+            <td class="title" width="400px">{{ i }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>
